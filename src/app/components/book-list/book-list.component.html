@@ -1,0 +1,33 @@
+<div *ngIf="books.length > 0; else noBooks">
+  <ul>
+    <li *ngFor="let book of books">
+      {{ book.bookname }} by {{ book.author }} - ${{ book.price }}
+      <button (click)="deleteBook(book.bookid)">Delete</button>
+      <button (click)="getBookById(book.bookid)">Edit</button>
+    </li>
+  </ul>
+</div>
+<ng-template #noBooks>
+  <p>No books available.</p>
+</ng-template>
+
+<p>Total Price of All Books: ${{ totalPrice }}</p>
+
+<h2>Add a New Book</h2>
+<form (ngSubmit)="saveBook()">
+  <input type="text" [(ngModel)]="newBook.bookname" name="title" placeholder="Title" required />
+  <input type="text" [(ngModel)]="newBook.author" name="author" placeholder="Author" required />
+  <input type="number" [(ngModel)]="newBook.price" name="price" placeholder="Price" required />
+  <input type="number" [(ngModel)]="newBook.bookid" name="bookid" placeholder="Book ID" required />
+  <button type="submit">Add Book</button>
+</form>
+
+
+<h2 *ngIf="selectedBook">Edit Book</h2>
+<form *ngIf="selectedBook" (ngSubmit)="updateBook()">
+  <input type="text" [(ngModel)]="selectedBook.bookname" name="title" placeholder="Title" required />
+  <input type="text" [(ngModel)]="selectedBook.author" name="author" placeholder="Author" required />
+  <input type="number" [(ngModel)]="selectedBook.price" name="price" placeholder="Price" required />
+  <input type="number" [(ngModel)]="selectedBook.bookid" name="bookid" placeholder="Book ID" required />
+  <button type="submit">Update Book</button>
+</form>
